@@ -288,20 +288,16 @@
 
     .gallery {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: 15px;
     }
 
     .gallery img {
       width: 100%;
-      height: 245px;
+      height: 220px;
       object-fit: cover;
       border-radius: 4px;
       display: block;
-    }
-
-    .gallery img:first-child {
-      grid-column: span 2;
     }
 
     .about {
@@ -364,10 +360,6 @@
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
 
-      .gallery img:first-child {
-        grid-column: span 2;
-      }
-
       .hero {
         min-height: 490px;
         background-position: center;
@@ -393,10 +385,6 @@
 
       .gallery {
         grid-template-columns: 1fr;
-      }
-
-      .gallery img:first-child {
-        grid-column: auto;
       }
 
       .gallery img {
@@ -641,6 +629,11 @@
             loading="lazy"
           >
           <img
+            src="christmas-lights-aerial.jpg"
+            alt="Aerial night photograph of colourful Christmas lights"
+            loading="lazy"
+          >
+          <img
             src="roof-detail.jpg"
             alt="Detailed overhead drone photograph of a roof"
             loading="lazy"
@@ -648,6 +641,11 @@
           <img
             src="construction-site-overview.jpg"
             alt="Aerial development site overview"
+            loading="lazy"
+          >
+          <img
+            src="construction-roof-progress.jpg"
+            alt="Aerial photograph of roofing work on a construction site"
             loading="lazy"
           >
           <img
