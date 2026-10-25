@@ -147,6 +147,22 @@
         padding: 45px 18px;
       }
     }
+
+    /* Sample report page viewer */
+    .sample-report { background: #fff; }
+    .report-intro { max-width: 800px; }
+    .report-viewer { max-width: 800px; margin: 30px auto 0; }
+    .report-page { width: 100%; height: auto; display: block; border: 1px solid #dce2e9; box-shadow: 0 8px 28px rgba(16,27,44,.12); }
+    .report-controls { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; margin-top: 22px; }
+    .report-controls button { background: #17243a; color: white; border: 0; border-radius: 5px; padding: 12px 20px; font: inherit; font-weight: bold; cursor: pointer; }
+    .report-controls button:disabled { opacity: .4; cursor: not-allowed; }
+    .report-controls button:not(:disabled):hover { background: #314765; }
+    .report-controls button:focus-visible { outline: 3px solid #ffdf42; outline-offset: 3px; }
+    .report-counter { font-weight: bold; }
+    .report-enlarge { text-align: center; margin-top: 15px; }
+    .report-enlarge a { color: #17243a; font-weight: bold; }
+    @media(max-width:480px) { .report-controls { justify-content: center; } .report-counter { order: -1; width: 100%; text-align: center; } }
+
   </style>
 </head>
 
@@ -409,6 +425,24 @@
       </div>
     </section>
 
+
+    <section class="sample-report" id="sample-report">
+      <div class="container">
+        <div class="accent"></div>
+        <h2>View a Sample Roof Inspection Report</h2>
+        <p class="report-intro">See an example of the information you could receive following an AI-assisted roof inspection. Use the buttons to browse all three pages. This is a demonstration report with fictional property and sign-off details.</p>
+        <div class="report-viewer">
+          <img id="report-page" class="report-page" src="sample-roof-report-page-1.png" alt="Sample roof inspection report, page 1 of 3: overview and recommended next steps" width="1020" height="1320">
+          <div class="report-controls">
+            <button type="button" id="report-prev" disabled>← Previous Page</button>
+            <span id="report-counter" class="report-counter" aria-live="polite">Page 1 of 3</span>
+            <button type="button" id="report-next">Next Page →</button>
+          </div>
+          <p class="report-enlarge"><a id="report-enlarge" href="sample-roof-report-page-1.png" target="_blank" rel="noopener">Enlarge current page ↗</a></p>
+        </div>
+      </div>
+    </section>
+
     <section>
       <div class="container">
 
@@ -493,6 +527,38 @@
     <p>&copy; 2026 Lothian Drones. All rights reserved.</p>
     <p>Professional Drone Services Across Scotland</p>
   </footer>
+
+
+  <script>
+    (function () {
+      const pages = [
+        "sample-roof-report-page-1.png",
+        "sample-roof-report-page-2.png",
+        "sample-roof-report-page-3.png"
+      ];
+      const descriptions = [
+        "overview and recommended next steps",
+        "chimney and slate findings",
+        "gutter findings and demonstration sign-off"
+      ];
+      let current = 0;
+      const image = document.getElementById("report-page");
+      const counter = document.getElementById("report-counter");
+      const previous = document.getElementById("report-prev");
+      const next = document.getElementById("report-next");
+      const enlarge = document.getElementById("report-enlarge");
+      function showPage() {
+        image.src = pages[current];
+        image.alt = `Sample roof inspection report, page ${current + 1} of ${pages.length}: ${descriptions[current]}`;
+        counter.textContent = `Page ${current + 1} of ${pages.length}`;
+        previous.disabled = current === 0;
+        next.disabled = current === pages.length - 1;
+        enlarge.href = pages[current];
+      }
+      previous.addEventListener("click", () => { if (current > 0) { current--; showPage(); } });
+      next.addEventListener("click", () => { if (current < pages.length - 1) { current++; showPage(); } });
+    })();
+  </script>
 
 </body>
 </html>
