@@ -152,7 +152,7 @@
     .sample-report { background: #fff; }
     .report-intro { max-width: 800px; }
     .report-viewer { max-width: 800px; margin: 30px auto 0; }
-    .report-page { width: 100%; height: auto; display: block; border: 1px solid #dce2e9; box-shadow: 0 8px 28px rgba(16,27,44,.12); }
+    .report-page { width: 100%; height: min(82vh, 950px); min-height: 520px; display: block; border: 1px solid #dce2e9; box-shadow: 0 8px 28px rgba(16,27,44,.12); }
     .report-controls { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; margin-top: 22px; }
     .report-controls button { background: #17243a; color: white; border: 0; border-radius: 5px; padding: 12px 20px; font: inherit; font-weight: bold; cursor: pointer; }
     .report-controls button:disabled { opacity: .4; cursor: not-allowed; }
@@ -423,15 +423,15 @@
       <div class="container">
         <div class="accent"></div>
         <h2>View a Sample Roof Inspection Report</h2>
-        <p class="report-intro">See an example of our roof inspection reporting format, including an illustrative roofer sign-off. Use the buttons to browse all three pages. This is a demonstration report with fictional property and sign-off details.</p>
+        <p class="report-intro">See an example of our aerial roof condition survey. Use the buttons to browse all 23 pages of this sample report.</p>
         <div class="report-viewer">
-          <img id="report-page" class="report-page" src="sample-roof-report-page-1.png" alt="Sample roof inspection report, page 1 of 3: overview and recommended next steps" width="1020" height="1320">
+          <iframe id="report-page" class="report-page" src="Lothian-Drones-Sample-Report-Updated-Rating.pdf#page=1&view=FitH" title="Lothian Drones sample roof inspection report, page 1 of 23"></iframe>
           <div class="report-controls">
             <button type="button" id="report-prev" disabled>← Previous Page</button>
-            <span id="report-counter" class="report-counter" aria-live="polite">Page 1 of 3</span>
+            <span id="report-counter" class="report-counter" aria-live="polite">Page 1 of 23</span>
             <button type="button" id="report-next">Next Page →</button>
           </div>
-          <p class="report-enlarge"><a id="report-enlarge" href="sample-roof-report-page-1.png" target="_blank" rel="noopener">Enlarge current page ↗</a></p>
+          <p class="report-enlarge"><a id="report-enlarge" href="Lothian-Drones-Sample-Report-Updated-Rating.pdf#page=1" target="_blank" rel="noopener">Open current page in PDF viewer ↗</a></p>
         </div>
       </div>
     </section>
@@ -524,32 +524,24 @@
 
   <script>
     (function () {
-      const pages = [
-        "sample-roof-report-page-1.png",
-        "sample-roof-report-page-2.png",
-        "sample-roof-report-page-3.png"
-      ];
-      const descriptions = [
-        "overview and recommended next steps",
-        "chimney and slate findings",
-        "gutter findings and demonstration sign-off"
-      ];
-      let current = 0;
-      const image = document.getElementById("report-page");
+      const pdf = "Lothian-Drones-Sample-Report-Updated-Rating.pdf";
+      const pageCount = 23;
+      let current = 1;
+      const viewer = document.getElementById("report-page");
       const counter = document.getElementById("report-counter");
       const previous = document.getElementById("report-prev");
       const next = document.getElementById("report-next");
       const enlarge = document.getElementById("report-enlarge");
       function showPage() {
-        image.src = pages[current];
-        image.alt = `Sample roof inspection report, page ${current + 1} of ${pages.length}: ${descriptions[current]}`;
-        counter.textContent = `Page ${current + 1} of ${pages.length}`;
-        previous.disabled = current === 0;
-        next.disabled = current === pages.length - 1;
-        enlarge.href = pages[current];
+        viewer.src = pdf + "#page=" + current + "&view=FitH";
+        viewer.title = "Lothian Drones sample roof inspection report, page " + current + " of " + pageCount;
+        counter.textContent = "Page " + current + " of " + pageCount;
+        previous.disabled = current === 1;
+        next.disabled = current === pageCount;
+        enlarge.href = pdf + "#page=" + current;
       }
-      previous.addEventListener("click", () => { if (current > 0) { current--; showPage(); } });
-      next.addEventListener("click", () => { if (current < pages.length - 1) { current++; showPage(); } });
+      previous.addEventListener("click", () => { if (current > 1) { current--; showPage(); } });
+      next.addEventListener("click", () => { if (current < pageCount) { current++; showPage(); } });
     })();
   </script>
 
